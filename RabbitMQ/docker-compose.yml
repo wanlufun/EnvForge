@@ -1,0 +1,22 @@
+services:
+  prometheus:
+    image: rabbitmq:management-alpine
+    container_name: rabbitmq
+    ports:
+      - 5672:5672
+      - 15672:15672
+    restart: unless-stopped
+    environment:
+      - RABBITMQ_DEFAULT_USER=root
+      - RABBITMQ_DEFAULT_PASS=123456
+    volumes:
+      - mq_data:/var/lib/rabbitmq
+    networks:
+      - mq
+
+networks:
+  mq:
+    driver: bridge
+
+volumes:
+  mq_data:
